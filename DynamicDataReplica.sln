@@ -1,0 +1,36 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.11.35208.52
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicDataReplica", "DynamicDataReplica\DynamicDataReplica.csproj", "{CE56E7BC-4991-4D12-B231-4FEE368ED875}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicDataReplica.Tests", "DynamicDataReplica.Tests\DynamicDataReplica.Tests.csproj", "{A4600FE7-F210-4973-B0E7-831D0FBC1051}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{D1CFF7CF-2997-4C11-8FF7-2B8E61ACFDB7}"
+	ProjectSection(SolutionItems) = preProject
+		README.md = README.md
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{CE56E7BC-4991-4D12-B231-4FEE368ED875}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CE56E7BC-4991-4D12-B231-4FEE368ED875}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CE56E7BC-4991-4D12-B231-4FEE368ED875}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CE56E7BC-4991-4D12-B231-4FEE368ED875}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A4600FE7-F210-4973-B0E7-831D0FBC1051}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A4600FE7-F210-4973-B0E7-831D0FBC1051}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A4600FE7-F210-4973-B0E7-831D0FBC1051}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A4600FE7-F210-4973-B0E7-831D0FBC1051}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {2B30AE75-B203-44AE-BDA7-904F17158EAE}
+	EndGlobalSection
+EndGlobal
