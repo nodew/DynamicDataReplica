@@ -6,7 +6,7 @@ namespace DynamicDataReplica.Tests;
 public class DynamicDataReplicaTests
 {
     [TestMethod]
-    public void ShadowCloneTests()
+    public void ShallowCloneTests()
     {
         var instance = new ClassA(
             "propertyA",
@@ -22,15 +22,16 @@ public class DynamicDataReplicaTests
                 new Dictionary<string, int> { { "key", 1 } },
                 new List<int> { 1 }));
 
-        dynamic shadowClone = DynamicDataReplica.ShadowClone(instance);
+        dynamic shadowClone = DynamicDataReplica.ShallowClone(instance);
 
         Assert.AreEqual(instance.PropertyA, shadowClone.PropertyA);
         Assert.AreEqual(instance.PropertyB, shadowClone.PropertyB);
         Assert.AreEqual(instance.PropertyC, shadowClone.PropertyC);
+        Assert.AreEqual(instance.PropertyD, shadowClone.PropertyD);
     }
 
     [TestMethod]
-    public void ShadowCloneTests_WithNulls()
+    public void ShallowCloneTests_WithNulls()
     {
         var instance = new ClassA(
             "propertyA",
@@ -44,11 +45,12 @@ public class DynamicDataReplicaTests
             null,
             null);
 
-        dynamic shadowClone = DynamicDataReplica.ShadowClone(instance);
+        dynamic shadowClone = DynamicDataReplica.ShallowClone(instance);
 
         Assert.AreEqual(instance.PropertyA, shadowClone.PropertyA);
         Assert.AreEqual(instance.PropertyB, shadowClone.PropertyB);
-        Assert.AreEqual(instance.PropertyC, shadowClone.PropertyC);
+        Assert.IsNull(shadowClone.PropertyC);
+        Assert.IsNull(shadowClone.PropertyD);
     }
 
     [TestMethod]

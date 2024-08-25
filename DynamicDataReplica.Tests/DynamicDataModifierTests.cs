@@ -23,7 +23,7 @@ public class DynamicDataModifierTests
              new List<int> { 1 }));
 
         var modifier = new SampeleModifier();
-        dynamic shadowClone = DynamicDataReplica.ShadowCloneWithModifier(instance, modifier);
+        dynamic shadowClone = DynamicDataReplica.ShallowCloneWithModifier(instance, modifier);
 
         Assert.AreEqual<string>("modifiedPropertyA", shadowClone.PropertyA);
         Assert.AreNotEqual<string>("modifiedArrayProp", shadowClone.PropertyB.ArrayProp[0]);

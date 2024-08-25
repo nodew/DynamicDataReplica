@@ -4,6 +4,9 @@ using System.Text.Json.Serialization;
 
 namespace DynamicDataReplica
 {
+    /// <summary>
+    /// A custom JSON converter for <see cref="DynamicDataReplica"/> objects.
+    /// </summary>
     public class DynamicDataReplicaJsonConverter : JsonConverter<DynamicDataReplica>
     {
         public override DynamicDataReplica? Read(ref Utf8JsonReader reader, Type typeToConvert, JsonSerializerOptions options)
