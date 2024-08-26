@@ -21,7 +21,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\DynamicDataReplica\DynamicDataReplica.csproj" />
+    <ProjectReference Include="..\DynamicPocoProxy\DynamicPocoProxy.csproj" />
   </ItemGroup>
 
   <ItemGroup>

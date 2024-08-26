@@ -1,7 +1,7 @@
-﻿using DynamicDataReplica.Tests.Models;
+﻿using DynamicPocoProxy.Tests.Models;
 using System.Text.Json;
 
-namespace DynamicDataReplica.Tests;
+namespace DynamicPocoProxy.Tests;
 
 [TestClass]
 public class DynamicDataReplicaSerializationTests

@@ -1,6 +1,6 @@
-﻿using DynamicDataReplica.Tests.Models;
+﻿using DynamicPocoProxy.Tests.Models;
 
-namespace DynamicDataReplica.Tests;
+namespace DynamicPocoProxy.Tests;
 
 [TestClass]
 public class DynamicDataModifierTests

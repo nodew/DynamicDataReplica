@@ -1,4 +1,4 @@
-﻿namespace DynamicDataReplica.Tests.Models
+﻿namespace DynamicPocoProxy.Tests.Models
 {
     internal class ClassC
     {

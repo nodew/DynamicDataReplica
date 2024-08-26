@@ -3,9 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.11.35208.52
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicDataReplica", "DynamicDataReplica\DynamicDataReplica.csproj", "{CE56E7BC-4991-4D12-B231-4FEE368ED875}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicPocoProxy", "src\DynamicPocoProxy\DynamicPocoProxy.csproj", "{CE56E7BC-4991-4D12-B231-4FEE368ED875}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicDataReplica.Tests", "DynamicDataReplica.Tests\DynamicDataReplica.Tests.csproj", "{A4600FE7-F210-4973-B0E7-831D0FBC1051}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DynamicPocoProxy.Tests", "src\DynamicPocoProxy.Tests\DynamicPocoProxy.Tests.csproj", "{A4600FE7-F210-4973-B0E7-831D0FBC1051}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution items", "Solution items", "{D1CFF7CF-2997-4C11-8FF7-2B8E61ACFDB7}"
 	ProjectSection(SolutionItems) = preProject
