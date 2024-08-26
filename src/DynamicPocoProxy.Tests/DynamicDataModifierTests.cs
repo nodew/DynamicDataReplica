@@ -65,6 +65,16 @@ public class DynamicDataModifierTests
         Assert.AreEqual<string>("modifiedDescription", deepClone.PropertyC.Description);
     }
 
+    [TestMethod]
+    public void ModifyBasedOnOriginalValueTest()
+    {
+        var target = new { Name = "John", Age = 30 };
+        dynamic replica = DynamicDataReplica.DeepCloneWithModifier(target, new AgeModifier());
+
+        Assert.AreEqual("John", replica.Name);
+        Assert.AreEqual(31, replica.Age);
+    }
+
     private class SampeleModifier : IValueModifier
     {
         private Dictionary<string, object> propMap = new Dictionary<string, object>()
@@ -84,6 +94,19 @@ public class DynamicDataModifierTests
         public bool TryUpdateValue(string propertyPath, object _, out object? modifiedValue)
         {
             return propMap.TryGetValue(propertyPath, out modifiedValue);
+        }
+    }
+
+    private class AgeModifier : IValueModifier {
+        public bool TryUpdateValue(string propertyPath, object? originalValue, out object? modifiedValue)
+        {
+            if (propertyPath == "Age")
+            {
+                modifiedValue = ((int)(originalValue ?? 0)) + 1;
+                return true;
+            }
+            modifiedValue = null;
+            return false;
         }
     }
 }
