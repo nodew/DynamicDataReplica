@@ -9,16 +9,16 @@ public class DynamicDataModifierTests
     public void ShadowCloneWithModifierTest()
     {
         var instance = new ClassA(
-         "propertyA",
-         new ClassB(
-             new[] { "arrayProp" },
-             new Dictionary<string, ClassC> { { "key", new ClassC(1, "name", "description") } },
-             new List<ClassD> {
-                    new ClassD(
-                        new Dictionary<string, int> { { "key", 1 } },
-                        new List<int> { 1 }) }),
-         new ClassC(1, "name", "description"),
-         new ClassD(
+        "propertyA",
+        new ClassB(
+            new[] { "arrayProp" },
+            new Dictionary<string, ClassC> { { "key", new ClassC(1, "name", "description") } },
+            new List<ClassD> {
+                new ClassD(
+                    new Dictionary<string, int> { { "key", 1 } },
+                    new List<int> { 1 }) }),
+        new ClassC(1, "name", "description"),
+        new ClassD(
              new Dictionary<string, int> { { "key", 1 } },
              new List<int> { 1 }));
 
@@ -38,18 +38,18 @@ public class DynamicDataModifierTests
     public void DeepCloneWithModifierTest()
     {
         var instance = new ClassA(
-         "propertyA",
-         new ClassB(
-             new[] { "arrayProp" },
-             new Dictionary<string, ClassC> { { "key", new ClassC(1, "name", "description") } },
-             new List<ClassD> {
-                    new ClassD(
-                        new Dictionary<string, int> { { "key", 1 } },
-                        new List<int> { 1 }) }),
-         new ClassC(1, "name", "description"),
-         new ClassD(
-             new Dictionary<string, int> { { "key", 1 } },
-             new List<int> { 1 }));
+        "propertyA",
+        new ClassB(
+            new[] { "arrayProp" },
+            new Dictionary<string, ClassC> { { "key", new ClassC(1, "name", "description") } },
+            new List<ClassD> {
+                new ClassD(
+                    new Dictionary<string, int> { { "key", 1 } },
+                    new List<int> { 1 }) }),
+        new ClassC(1, "name", "description"),
+        new ClassD(
+            new Dictionary<string, int> { { "key", 1 } },
+            new List<int> { 1 }));
 
         var modifier = new SampeleModifier();
         dynamic deepClone = DynamicDataReplica.DeepCloneWithModifier(instance, modifier);
@@ -63,6 +63,19 @@ public class DynamicDataModifierTests
         Assert.AreEqual<int>(2, deepClone.PropertyC.Id);
         Assert.AreEqual<string>("modifiedName", deepClone.PropertyC.Name);
         Assert.AreEqual<string>("modifiedDescription", deepClone.PropertyC.Description);
+    }
+
+    [TestMethod]
+    public void DeepCloneStructWithModifierTest()
+    {
+        var instance = new StructA(1, new StructB(2, "foo"));
+
+        var modifier = new SimpleStructModifier();
+        dynamic deepClone = DynamicDataReplica.DeepCloneWithModifier(instance, modifier);
+
+        Assert.AreEqual(1, deepClone.PropertyA);
+        Assert.AreEqual(2, deepClone.PropertyB.PropertyAlpha);
+        Assert.AreEqual("bar", deepClone.PropertyB.PropertyBeta);
     }
 
     [TestMethod]
@@ -97,7 +110,8 @@ public class DynamicDataModifierTests
         }
     }
 
-    private class AgeModifier : IValueModifier {
+    private class AgeModifier : IValueModifier
+    {
         public bool TryUpdateValue(string propertyPath, object? originalValue, out object? modifiedValue)
         {
             if (propertyPath == "Age")
@@ -105,6 +119,21 @@ public class DynamicDataModifierTests
                 modifiedValue = ((int)(originalValue ?? 0)) + 1;
                 return true;
             }
+            modifiedValue = null;
+            return false;
+        }
+    }
+
+    private class SimpleStructModifier : IValueModifier
+    {
+        public bool TryUpdateValue(string propertyPath, object? originalValue, out object? modifiedValue)
+        {
+            if (propertyPath == "PropertyB.PropertyBeta")
+            {
+                modifiedValue = "bar";
+                return true;
+            }
+
             modifiedValue = null;
             return false;
         }

@@ -88,4 +88,16 @@ public class DynamicDataReplicaTests
         Assert.AreEqual(instance.PropertyD.DictProp["key"], deepClone.PropertyD.DictProp["key"]);
         Assert.AreEqual(instance.PropertyD.ListProp[0], deepClone.PropertyD.ListProp[0]);
     }
+
+    [TestMethod]
+    public void DeepCloneStructTests()
+    {
+        var instance = new StructA(1, new StructB(2, "betaxxx"));
+
+        dynamic replica = DynamicDataReplica.DeepClone(instance);
+
+        Assert.AreEqual(instance.PropertyA, replica.PropertyA);
+        Assert.AreEqual(instance.PropertyB.PropertyAlpha, replica.PropertyB.PropertyAlpha);
+        Assert.AreEqual(instance.PropertyB.PropertyBeta, replica.PropertyB.PropertyBeta);
+    }
 }

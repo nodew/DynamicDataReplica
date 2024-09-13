@@ -13,14 +13,12 @@ public class DynamicDataReplica : DynamicObject
     private readonly string parentPropertyPath;
     private readonly IValueModifier? modifier;
 
-    private class CustomGetMemberBinder : GetMemberBinder
+    /// <summary>
+    /// Initializes a new instance of the <see cref="CustomGetMemberBinder"/> class.
+    /// </summary>
+    /// <param name="name">The name of the member to get.</param>
+    private class CustomGetMemberBinder(string name) : GetMemberBinder(name, false)
     {
-        /// <summary>
-        /// Initializes a new instance of the <see cref="CustomGetMemberBinder"/> class.
-        /// </summary>
-        /// <param name="name">The name of the member to get.</param>
-        public CustomGetMemberBinder(string name) : base(name, false) { }
-
         /// <summary>
         /// Performs the binding of the dynamic get member operation.
         /// </summary>
@@ -75,7 +73,7 @@ public class DynamicDataReplica : DynamicObject
     public override bool TryGetMember(GetMemberBinder binder, out object? result)
     {
         var propName = binder.Name;
-        var propInfo = targetType.GetProperty(propName);
+        var propInfo = targetProperties.FirstOrDefault(prop => prop.Name == propName);
 
         if (propInfo is null)
         {
@@ -231,7 +229,7 @@ public class DynamicDataReplica : DynamicObject
     /// <param name="dict">The dictionary to clone.</param>
     /// <param name="propertyPath">The property path.</param>
     /// <returns>The cloned dictionary.</returns>
-    private Dictionary<string, object?> CloneDictionary(IDictionary dict, string propertyPath)
+    private Dictionary<string, object?> CloneDictionary(IDictionary? dict, string propertyPath)
     {
         if (dict is null || dict.Count == 0)
         {
@@ -259,7 +257,7 @@ public class DynamicDataReplica : DynamicObject
     /// <param name="list">The list to clone.</param>
     /// <param name="propertyPath">The property path.</param>
     /// <returns>The cloned list.</returns>
-    private List<object?> CloneList(IList list, string propertyPath)
+    private List<object?> CloneList(IList? list, string propertyPath)
     {
         if (list is null || list.Count == 0)
         {
@@ -286,7 +284,7 @@ public class DynamicDataReplica : DynamicObject
     /// <param name="array">The array to clone.</param>
     /// <param name="propertyPath">The property path.</param>
     /// <returns>The cloned array.</returns>
-    private Array? CloneArray(Array array, string propertyPath)
+    private Array? CloneArray(Array? array, string propertyPath)
     {
         if (array is null)
         {
@@ -336,7 +334,7 @@ public class DynamicDataReplica : DynamicObject
     /// <param name="hashSet">The hash set to clone.</param>
     /// <param name="propertyPath">The property path.</param>
     /// <returns>The cloned hash set.</returns>
-    private HashSet<object?> CloneHashSet(HashSet<object> hashSet, string propertyPath)
+    private HashSet<object?> CloneHashSet(HashSet<object>? hashSet, string propertyPath)
     {
         if (hashSet is null || hashSet.Count == 0)
         {

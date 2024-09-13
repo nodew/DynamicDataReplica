@@ -52,6 +52,7 @@ internal static class TypeHelper
             || type == typeof(DateTime)
             || type == typeof(TimeSpan)
             || type == typeof(DateTimeOffset)
+            || type == typeof(byte[])
             || type == typeof(Version)
             || type == typeof(Type);
     }
@@ -143,7 +144,7 @@ internal static class TypeHelper
     {
         public int Compare(Type? x, Type? y)
         {
-            if (x is  null || y is null)
+            if (x is null || y is null)
             {
                 return 0;
             }

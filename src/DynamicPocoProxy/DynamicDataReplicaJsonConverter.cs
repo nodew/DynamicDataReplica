@@ -25,15 +25,43 @@ public class DynamicDataReplicaJsonConverter : JsonConverter<DynamicDataReplica>
             foreach (var property in properties)
             {
                 var jsonPropertyName = property.GetCustomAttribute<JsonPropertyNameAttribute>()?.Name ?? property.Name;
-                var isIgnored = property.GetCustomAttribute<JsonIgnoreAttribute>() is not null;
+                var propertyName = property.GetCustomAttribute<JsonPropertyNameAttribute>(false)?.Name ?? property.Name;
 
-                if (isIgnored)
-                {
-                    continue;
-                }
+                var jsonIgnoreAttribute = property.GetCustomAttribute<JsonIgnoreAttribute>();
 
                 if (value.TryGetMemberByName(property.Name, out var propValue))
                 {
+                    if (jsonIgnoreAttribute is not null)
+                    {
+                        if (jsonIgnoreAttribute.Condition == JsonIgnoreCondition.Always)
+                        {
+                            continue;
+                        }
+
+                        if (jsonIgnoreAttribute.Condition == JsonIgnoreCondition.WhenWritingDefault && propValue is null)
+                        {
+                            continue;
+                        }
+
+                        if (jsonIgnoreAttribute.Condition == JsonIgnoreCondition.WhenWritingNull && propValue is null)
+                        {
+                            continue;
+                        }
+                    }
+
+                    // Trick to align with System.Text.Json serilization bug https://github.com/dotnet/runtime/issues/92780
+
+                    var getMethod = property.GetGetMethod(false);
+                    if (getMethod?.GetBaseDefinition() != getMethod)
+                    {
+                        if (jsonPropertyName != propertyName)
+                        {
+                            writer.WritePropertyName(propertyName);
+                            JsonSerializer.Serialize(writer, propValue, options);
+                        }
+                    }
+
+
                     writer.WritePropertyName(jsonPropertyName);
                     JsonSerializer.Serialize(writer, propValue, options);
                 }
